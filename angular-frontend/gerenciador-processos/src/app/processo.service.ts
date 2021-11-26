@@ -17,6 +17,6 @@ export class ProcessoService {
   }
 
   addProcesso(processo: Processo): Observable<Object>{
-    return this.httpClient.post(`${this.baseURL}`, processo);
+    return this.httpClient.post(`${this.baseURL + '/add'}`, processo);
   }
 }

@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProcessoAddComponent } from './processo-add/processo-add.component';
 import { ProcessoListComponent } from './processo-list/processo-list.component';
+import { ProcessoUpdateComponent } from './processo-update/processo-update.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProcessoListComponent,
-    ProcessoAddComponent
+    ProcessoAddComponent,
+    ProcessoUpdateComponent
   ],
   imports: [
     BrowserModule,

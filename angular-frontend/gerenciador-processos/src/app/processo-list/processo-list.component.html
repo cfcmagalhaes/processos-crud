@@ -6,15 +6,20 @@
       <th>Titulo</th>
       <th>Autor</th>
       <th>Réu</th>
+      <th>Ações</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let processo of processos">
-      <td> {{ processo.numero }}</td>
-      <td> {{ processo.titulo }}</td>
-      <td> autor...</td>
-      <td> réu...</td>
-
+      <td>{{ processo.numero }}</td>
+      <td>{{ processo.titulo }}</td>
+      <td>autor...</td>
+      <td>réu...</td>
+      <td>
+        <button (click)="updateProcesso(processo.id)" class="btn btn-info">
+          Editar
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

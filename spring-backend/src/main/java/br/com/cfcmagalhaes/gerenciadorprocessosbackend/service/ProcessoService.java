@@ -1,5 +1,6 @@
 package br.com.cfcmagalhaes.gerenciadorprocessosbackend.service;
 
+import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoFoundedException;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.model.Processo;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoNotFoundException;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.repository.ProcessoRepository;
@@ -26,19 +27,28 @@ public class ProcessoService
         return processoRepository.findAll( );
     }
 
-    public Processo findProcessById( Long id )
+    public Processo findProcessoById( Long id )
     {
-        return processoRepository.findProcessById( id )
-                .orElseThrow(() -> new ProcessoNotFoundException( "Processo de id " + id + " não encontrado" ) );
+        return processoRepository.findProcessoById( id )
+                .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
     }
 
     public Processo addProcess( Processo processo )
     {
-        return processoRepository.save( processo );
+        Processo proc = processoRepository.findProcessoByNumero( processo.getNumero( ) );
+
+        if( proc == null )
+            return processoRepository.save( processo );
+
+        throw new ProcessoFoundedException( "Processo já cadastrado" );
+
     }
 
     public Processo updateProcess( Processo processo )
     {
+        Processo proc = processoRepository.findProcessoById( processo.getId( ) )
+                        .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
+
         return processoRepository.save( processo );
     }
 

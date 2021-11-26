@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Processo } from '../processo';
 import { ProcessoService } from './../processo.service';
@@ -12,7 +13,8 @@ export class ProcessoListComponent implements OnInit {
 
   processos: Processo[] = [];
 
-  constructor(private processoService: ProcessoService) { }
+  constructor(private processoService: ProcessoService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getProcessos();
@@ -22,6 +24,10 @@ export class ProcessoListComponent implements OnInit {
     this.processoService.getProcessosList().subscribe(data => {
       this.processos = data;
     });
+  }
+
+  updateProcesso(id: number){
+    this.router.navigate(['processo/update', id]);
   }
 
 }

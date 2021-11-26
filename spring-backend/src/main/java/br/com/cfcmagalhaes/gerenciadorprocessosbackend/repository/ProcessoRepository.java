@@ -11,5 +11,7 @@ public interface ProcessoRepository extends JpaRepository<Processo, Long>
 {
     void deleteProcessById( Long id );
 
-    Optional<Processo> findProcessById( Long id );
+    Optional<Processo> findProcessoById( Long id );
+
+    Processo findProcessoByNumero( String numero );
 }
