@@ -1,0 +1,20 @@
+<h2>Lista de Processos</h2>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Numero</th>
+      <th>Titulo</th>
+      <th>Autor</th>
+      <th>Réu</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let processo of processos">
+      <td> {{ processo.numero }}</td>
+      <td> {{ processo.titulo }}</td>
+      <td> autor...</td>
+      <td> réu...</td>
+
+    </tr>
+  </tbody>
+</table>
