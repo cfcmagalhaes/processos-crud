@@ -3,6 +3,7 @@ package br.com.cfcmagalhaes.gerenciadorprocessosbackend.controller;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.model.Processo;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoNotFoundException;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.service.ProcessoService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -49,18 +51,19 @@ public class ProcessoController
         return new ResponseEntity<>( newProcess, HttpStatus.CREATED );
     }
 
-    @PutMapping( "/update")
-    public ResponseEntity<Processo> updateProcess( @RequestBody Processo processo ) throws ProcessoNotFoundException
+    @PutMapping( "/update/{id}")
+    public ResponseEntity<Processo> updateProcess( @PathVariable Long id, @RequestBody Processo processo )
     {
-        Processo updateProcess = processoService.updateProcess( processo );
-
+        Processo updateProcess = processoService.updateProcess( id, processo );
+        
         return new ResponseEntity<>( updateProcess, HttpStatus.OK );
     }
 
     @DeleteMapping( "/delete/{id}" )
-    public ResponseEntity<?> deleteProcess( @PathVariable ("id") Long id )
+    public ResponseEntity<Map<String, Boolean>> deleteProcess(@PathVariable ("id") Long id )
     {
         processoService.deleteProcess( id );
+
         return new ResponseEntity<>( HttpStatus.OK );
     }
 }

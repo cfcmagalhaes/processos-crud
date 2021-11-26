@@ -19,4 +19,16 @@ export class ProcessoService {
   addProcesso(processo: Processo): Observable<Object>{
     return this.httpClient.post(`${this.baseURL + '/add'}`, processo);
   }
+
+  getProcessoById(id: number): Observable<Processo>{
+    return this.httpClient.get<Processo>(`${this.baseURL}/find/${id}`);
+  }
+
+  updateProcesso(id: number, processo: Processo): Observable<Object>{
+    return this.httpClient.put(`${this.baseURL}/update/${id}`, processo);
+  }
+
+  deleteProcesso( id: number): Observable<Object>{
+    return this.httpClient.delete(`${this.baseURL}/delete/${id}`);
+  }
 }

@@ -8,7 +8,7 @@ import { ProcessoUpdateComponent } from './processo-update/processo-update.compo
 const routes: Routes = [
   {path: 'processo', component: ProcessoListComponent},
   {path: 'processo/add', component: ProcessoAddComponent },
-  {path: 'processo/update', component: ProcessoUpdateComponent },
+  {path: 'processo/update/:id', component: ProcessoUpdateComponent },
   {path: '', redirectTo: 'processo', pathMatch: 'full'}
 
 

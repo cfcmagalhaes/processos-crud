@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -44,16 +46,22 @@ public class ProcessoService
 
     }
 
-    public Processo updateProcess( Processo processo )
+    public Processo updateProcess( Long id, Processo processo )
     {
-        Processo proc = processoRepository.findProcessoById( processo.getId( ) )
+        Processo updatedProcesso = processoRepository.findProcessoById( id )
                         .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
 
-        return processoRepository.save( processo );
+        updatedProcesso.setNumero( processo.getNumero( ) );
+        updatedProcesso.setTitulo( processo.getTitulo( ) );
+
+        return processoRepository.save( updatedProcesso );
     }
 
-    public void deleteProcess( Long id )
+    public void deleteProcess(Long id )
     {
-        processoRepository.deleteProcessById( id );
+        Processo processo = processoRepository.findProcessoById( id )
+                .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
+
+        processoRepository.delete( processo );
     }
 }

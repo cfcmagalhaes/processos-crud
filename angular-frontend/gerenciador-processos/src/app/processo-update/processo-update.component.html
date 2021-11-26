@@ -1,1 +1,19 @@
-<p>processo-update works!</p>
+<div class="col-md-6 offset-md-3">
+  <h3>Alterar Processo</h3>
+  <form (ngSubmit) = "onSubmit()">
+
+    <div class="form-group">
+      <label>Numero do Processo</label>
+      <input type="text" class ="form-control" id = "numero"
+          [(ngModel)] = "processo.numero" name = "numero">
+    </div>
+
+    <div class="form-group">
+        <label>Titulo do Processo</label>
+        <input type="text" class ="form-control" id = "titulo"
+            [(ngModel)] = "processo.titulo" name = "titulo">
+    </div>
+
+    <button class="btn btn-success" type ="submit">Submit</button>
+  </form>
+</div>

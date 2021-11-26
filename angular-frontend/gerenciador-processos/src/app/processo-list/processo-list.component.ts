@@ -30,4 +30,11 @@ export class ProcessoListComponent implements OnInit {
     this.router.navigate(['processo/update', id]);
   }
 
+  deleteProcesso(id: number){
+    this.processoService.deleteProcesso(id).subscribe( data => {
+      console.log(data);
+      this.getProcessos();
+    })
+  }
+
 }
