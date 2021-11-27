@@ -27,7 +27,7 @@ export class ProcessoListComponent implements OnInit {
   }
 
   updateProcesso(id: number){
-    this.router.navigate(['processo/update', id]);
+    this.router.navigate(['update-processo/', id]);
   }
 
   deleteProcesso(id: number){
@@ -38,7 +38,7 @@ export class ProcessoListComponent implements OnInit {
   }
 
   detailProcesso(id: number){
-    this.router.navigate(['processo/find', id]);
+    this.router.navigate(['detail-processo/', id]);
   }
 
 }

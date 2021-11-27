@@ -28,7 +28,7 @@ export class ProcessoAddComponent implements OnInit {
   }
 
   goToProcessoList(){
-    this.router.navigate(['/processo']);
+    this.router.navigate(['/list-processos']);
   }
 
   onSubmit(){

@@ -1,7 +1,8 @@
-import { ProcessoService } from './../processo.service';
-import { ActivatedRoute } from '@angular/router';
-import { Processo } from './../processo';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { Processo } from './../processo';
+import { ProcessoService } from './../processo.service';
 
 @Component({
   selector: 'app-processo-detail',

@@ -1,67 +1,93 @@
 package br.com.cfcmagalhaes.gerenciadorprocessosbackend.service;
 
-import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoFoundedException;
+import br.com.cfcmagalhaes.gerenciadorprocessosbackend.dto.MessageResponseDTO;
+import br.com.cfcmagalhaes.gerenciadorprocessosbackend.dto.ProcessoDTO;
+import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoDuplicateException;
+import br.com.cfcmagalhaes.gerenciadorprocessosbackend.mapper.ProcessoMapper;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.model.Processo;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.exception.ProcessoNotFoundException;
 import br.com.cfcmagalhaes.gerenciadorprocessosbackend.repository.ProcessoRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@AllArgsConstructor( onConstructor = @__( @Autowired ) )
 public class ProcessoService
 {
-    private final ProcessoRepository processoRepository;
+    private ProcessoRepository processoRepository;
 
-    @Autowired
-    public ProcessoService( ProcessoRepository processRepository )
+    private final ProcessoMapper processoMapper = ProcessoMapper.INSTANCE;
+
+    public List<ProcessoDTO> getAll( )
     {
-        this.processoRepository = processRepository;
+        List<Processo> processos = processoRepository.findAll();
+        return processos.stream()
+                .map( processoMapper::toDTO )
+                .collect( Collectors.toList( ) );
     }
 
-    public List<Processo> findAllProcess( )
+    public ProcessoDTO findById( Long id ) throws ProcessoNotFoundException
     {
-        return processoRepository.findAll( );
+        Processo processo = verificaSeExiste( id );
+
+        return processoMapper.toDTO( processo );
     }
 
-    public Processo findProcessoById( Long id )
+    public MessageResponseDTO add(ProcessoDTO processoDTO ) throws ProcessoDuplicateException
     {
-        return processoRepository.findProcessoById( id )
-                .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
+        Processo processoToSave = processoMapper.toModel( processoDTO );
+
+        verificaSeExiste( processoToSave.getNumero( ) );
+
+        Processo processoSaved = processoRepository.save( processoToSave );
+
+        return createMessageResponse( processoSaved.getId( ), "Processo nº "
+                + processoSaved.getNumero( ) + " criado com sucesso." );
     }
 
-    public Processo addProcess( Processo processo )
+    public MessageResponseDTO update( Long id, ProcessoDTO processoDTO ) throws ProcessoNotFoundException
     {
-        Processo proc = processoRepository.findProcessoByNumero( processo.getNumero( ) );
+        Processo processoToUpdate = processoMapper.toModel( processoDTO );
 
-        if( proc == null )
-            return processoRepository.save( processo );
+        verificaSeExiste( id );
 
-        throw new ProcessoFoundedException( "Processo já cadastrado" );
+        Processo processoUpdated = processoRepository.save( processoToUpdate );
 
+        return createMessageResponse( processoUpdated.getId( ), "Processo nº "
+                + processoUpdated.getNumero( ) + " foi alterado com sucesso.");
     }
 
-    public Processo updateProcess( Long id, Processo processo )
+    public void delete( Long id ) throws ProcessoNotFoundException
     {
-        Processo updatedProcesso = processoRepository.findProcessoById( id )
-                        .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
+        verificaSeExiste( id );
 
-        updatedProcesso.setNumero( processo.getNumero( ) );
-        updatedProcesso.setTitulo( processo.getTitulo( ) );
-        updatedProcesso.setAutor( processo.getAutor( ) );
-        updatedProcesso.setReu( processo.getReu( ) );
-
-        return processoRepository.save( updatedProcesso );
+        processoRepository.deleteById( id );
     }
 
-    public void deleteProcess(Long id )
+// Métodos úteis
+    private Processo verificaSeExiste( Long id )
     {
-        Processo processo = processoRepository.findProcessoById( id )
-                .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado" ) );
+        return processoRepository.findById( id )
+                .orElseThrow( ( ) -> new ProcessoNotFoundException( "Processo não encontrado." ) );
+    }
 
-        processoRepository.delete( processo );
+    private void verificaSeExiste( String numero )
+    {
+        Processo processo = processoRepository.findProcessoByNumero( numero );
+
+        if( processo != null )
+            throw new RuntimeException( "Processo já existe na base." );
+    }
+
+    private MessageResponseDTO createMessageResponse( Long id, String message )
+    {
+        return MessageResponseDTO
+                .builder( )
+                .message( message + " (#" + id + ")" )
+                .build( );
     }
 }

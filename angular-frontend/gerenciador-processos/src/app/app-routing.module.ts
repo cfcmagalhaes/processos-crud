@@ -7,11 +7,11 @@ import { ProcessoListComponent } from './processo-list/processo-list.component';
 import { ProcessoUpdateComponent } from './processo-update/processo-update.component';
 
 const routes: Routes = [
-  {path: 'processo', component: ProcessoListComponent},
-  {path: 'processo/add', component: ProcessoAddComponent },
-  {path: 'processo/update/:id', component: ProcessoUpdateComponent },
-  {path: 'processo/find/:id', component: ProcessoDetailComponent },
-  {path: '', redirectTo: 'processo', pathMatch: 'full'}
+  {path: 'list-processos', component: ProcessoListComponent},
+  {path: 'add-processo', component: ProcessoAddComponent },
+  {path: 'update-processo/:id', component: ProcessoUpdateComponent },
+  {path: 'detail-processo/:id', component: ProcessoDetailComponent },
+  {path: '', redirectTo: 'list-processos', pathMatch: 'full'}
 
 
 ];
