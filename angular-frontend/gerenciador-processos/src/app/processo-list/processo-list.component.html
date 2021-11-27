@@ -2,7 +2,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>Numero</th>
+      <th>Numeração única</th>
       <th>Titulo</th>
       <th>Autor</th>
       <th>Réu</th>
@@ -16,11 +16,14 @@
       <td>autor...</td>
       <td>réu...</td>
       <td>
-        <button (click)="updateProcesso(processo.id)" class="btn btn-info">
+        <button (click)="updateProcesso(processo.id)" class="btn btn-secondary">
           Editar
         </button>
         <button (click)="deleteProcesso(processo.id)" class="btn btn-danger" style="margin-left: 10px;">
           Excluir
+        </button>
+        <button (click)="detailProcesso(processo.id)" class="btn btn-info" style="margin-left: 10px;">
+          Detalhes
         </button>
       </td>
     </tr>

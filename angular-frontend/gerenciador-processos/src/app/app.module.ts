@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { ProcessoAddComponent } from './processo-add/processo-add.component';
 import { ProcessoListComponent } from './processo-list/processo-list.component';
 import { ProcessoUpdateComponent } from './processo-update/processo-update.component';
+import { ProcessoDetailComponent } from './processo-detail/processo-detail.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ProcessoListComponent,
     ProcessoAddComponent,
-    ProcessoUpdateComponent
+    ProcessoUpdateComponent,
+    ProcessoDetailComponent
   ],
   imports: [
     BrowserModule,

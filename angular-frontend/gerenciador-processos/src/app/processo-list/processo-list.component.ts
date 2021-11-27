@@ -37,4 +37,8 @@ export class ProcessoListComponent implements OnInit {
     })
   }
 
+  detailProcesso(id: number){
+    this.router.navigate(['processo/find', id]);
+  }
+
 }
