@@ -6,8 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Data
@@ -22,12 +22,17 @@ public class Processo implements Serializable
     private Long id;
 
     @Column( nullable = false )
+    @NotBlank( message = "O título do processo é obrigatório.")
     private String titulo;
 
     @Column( nullable = false, unique = true )
+    @NotBlank( message = "O numero do processo é obrigatório.")
     private String numero;
 
-    @OneToMany( fetch = FetchType.LAZY, cascade = CascadeType.ALL )
-    private List<Parte> partesProcesso;
+    @Column( nullable = false )
+    private String autor;
+
+    @Column( nullable = true )
+    private String reu;
 
 }

@@ -1,11 +1,13 @@
-<div class="col-md-6 offset-md-3">
-  <h3>Novo Processo</h3>
+  <h3 class="titulo">Novo Processo</h3>
   <form (ngSubmit) = "onSubmit()">
 
     <div class="form-group form-floating mb-3">
       <input type="text" class ="form-control" id = "numero" placeholder = "Numeração única"
-      [(ngModel)] = "processo.numero" name = "numero">
+      [(ngModel)] = "processo.numero" name = "numero" required>
       <label for="numero">Numeração única</label>
+      <div class="valid-feedback">
+        Looks good!
+      </div>
     </div>
 
     <div class="form-group form-floating mb-3">
@@ -14,7 +16,19 @@
             <label for="titulo">Título</label>
     </div>
 
-    <button class="btn btn-success" type ="submit">Submit</button>
-  </form>
-</div>
+    <div class="form-group form-floating mb-3">
+      <input type="text" class ="form-control" id = "autor" placeholder = "Autor"
+          [(ngModel)] = "processo.autor" name = "autor">
+          <label for="titulo">Autor</label>
+    </div>
 
+    <div class="form-group form-floating mb-3">
+      <input type="text" class ="form-control" id = "reu" placeholder = "Réu"
+          [(ngModel)] = "processo.reu" name = "reu">
+          <label for="reu">Réu</label>
+    </div>
+
+    <button class="btn btn-success" type="submit">Salvar</button>
+    <button class="btn btn-danger" type="cancel" onclick="window.location='http://localhost:4200';return false;" style="margin-left: 10px;">Cancelar</button>
+    <button class="btn btn-secondary" type="reset" style="margin-left: 10px;">Limpar</button>
+  </form>

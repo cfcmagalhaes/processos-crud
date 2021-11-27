@@ -1,4 +1,4 @@
-<h2>Lista de Processos</h2>
+<h3 class="titulo">Lista de Processos</h3>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -12,9 +12,9 @@
   <tbody>
     <tr *ngFor="let processo of processos">
       <td>{{ processo.numero }}</td>
-      <td>{{ processo.titulo }}</td>
-      <td>autor...</td>
-      <td>réu...</td>
+      <td class="textoLimitado">{{ processo.titulo }}</td>
+      <td>{{ processo.autor }}</td>
+      <td>{{ processo.reu }}</td>
       <td>
         <button (click)="updateProcesso(processo.id)" class="btn btn-secondary">
           Editar

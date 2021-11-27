@@ -1,4 +1,4 @@
-<h3>Detalhes do Processo</h3>
+<h3 class="titulo">Detalhes do Processo</h3>
 <div>
   <div>
     <label><b>Numero: </b></label> {{ processo.numero}}
@@ -6,4 +6,11 @@
   <div>
     <label><b>Titulo: </b></label> {{ processo.titulo}}
   </div>
+  <div>
+    <label><b>Autor: </b></label> {{ processo.autor}}
+  </div>
+  <div>
+    <label><b>Réu: </b></label> {{ processo.reu}}
+  </div>
 </div>
+<button class="btn btn-secondary" type="cancel" onclick="window.history.back();">Voltar</button>
